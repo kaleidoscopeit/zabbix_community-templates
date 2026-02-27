@@ -2,23 +2,38 @@
 
 ## Overview
 
-here we got a lot of statistics from bind9 with some important triggers, everything works with LLD. No extra scripts are required
+Here we got a lot of statistics from bind9 with some important triggers, everything works with LLD. No extra scripts are required
+
+There are two template variants:
+- template_bind9-stat_by_http.yaml -> Regular metrics via Passive Agent
+- template_bind9-stat_by_http-active.yaml -> Metrics via Active Agent
 
 ## Setup
 ### Debian
-just add this to you `/etc/bind/named.conf` file
 
+Just add this to `/etc/bind/named.conf`:
+
+_Passive Agent_
 ```
 // for monitoring
 statistics-channels {
     inet <DNSSERVER-IP> port 8653 allow { <ZABBIXSERVER-IP>; };
 };
-
 ```
+
+_Active Agent_
+```
+// for server-agent monitoring
+statistics-channels {
+    inet 127.0.0.1 port 8653 allow { 127.0.0.1; };
+};
+```
+
 
 ## Author
 
-Stefan Krüger
+- Stefan Krüger -> Principal Author
+- Gabriele Rossetti (KaleidoscopeIT) -> Active Agent Variant
 
 ## Macros used
 
